@@ -1,0 +1,207 @@
+; SYNTAX TEST "Packages/LC-3/LC-3.sublime-syntax"
+; <- comment.line.lc3 punctuation.definition.comment.lc3
+
+            RET
+            ; <- invalid.illegal.missing-orig.lc3
+            .ORIG       x3000
+            ; <- meta.preprocessor.lc3 keyword.control.import.lc3 
+                        ; <- meta.preprocessor.lc3 constant.numeric.hex.lc3
+            .ORIG       #65535
+
+            .EXTERNAL   MOO
+            ; <- meta.preprocessor.lc3 keyword.control.import.lc3
+                        ; <- meta.preprocessor.lc3 entity.name.function.lc3
+            JMP
+            ; <- keyword.control.lc3
+            ;  ^ invalid.illegal.missing-operand.lc3
+
+x3000       RET
+; <- entity.name.function.lc3 invalid.deprecated.ambiguous-label.lc3
+            ; <- keyword.control.lc3
+
+12345       RET
+; <- entity.name.function.lc3 invalid.illegal.bad-label.lc3
+            ; <- keyword.control.lc3
+bad-label   RET
+; <- entity.name.function.lc3
+;  ^^^^^^ invalid.illegal.bad-label.lc3
+
+            ADD         R0, R1, R2,
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ; ^ punctuation.separator.lc3
+                        ;   ^^ variable.language.lc3
+                        ;     ^ punctuation.separator.lc3
+                        ;       ^^ variable.language.lc3
+                        ;         ^ invalid.illegal.stray-comma.lc3
+            ADD         R0, R1, R2 asdf
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ; ^ punctuation.separator.lc3
+                        ;   ^^ variable.language.lc3
+                        ;     ^ punctuation.separator.lc3
+                        ;       ^^ variable.language.lc3
+                        ;          ^ invalid.illegal.stray-operand.lc3
+            ADD         R0, R1
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ; ^ punctuation.separator.lc3
+                        ;   ^^ variable.language.lc3
+                        ;     ^ invalid.illegal.missing-operand.lc3
+            ADD         R0, R1,
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ; ^ punctuation.separator.lc3
+                        ;   ^^ variable.language.lc3
+                        ;     ^ punctuation.separator.lc3
+                        ;      ^ invalid.illegal.missing-operand.lc3
+            ADD         R0, R
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ; ^ punctuation.separator.lc3
+                        ;   ^ invalid.illegal.wrong-operand.lc3
+
+LABEL       AND         R0, R1, 31
+; <- entity.name.function.lc3
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ; ^ punctuation.separator.lc3
+                        ;   ^^ variable.language.lc3
+                        ;     ^ punctuation.separator.lc3
+                        ;       ^^ constant.numeric.integer.lc3 invalid.deprecated.unqualified-integer.lc3
+
+LABEL       ADD         R0, R1, R2
+; <- entity.name.function.lc3
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ; ^ punctuation.separator.lc3
+                        ;   ^^ variable.language.lc3
+                        ;     ^ punctuation.separator.lc3
+                        ;       ^^ variable.language.lc3
+LABEL       ADD         R0, R1, x1F
+; <- entity.name.function.lc3
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ; ^ punctuation.separator.lc3
+                        ;   ^^ variable.language.lc3
+                        ;     ^ punctuation.separator.lc3
+                        ;       ^^^ constant.numeric.hex.lc3
+LABEL       AND         R0, R1, R2
+; <- entity.name.function.lc3
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ; ^ punctuation.separator.lc3
+                        ;   ^^ variable.language.lc3
+                        ;     ^ punctuation.separator.lc3
+                        ;       ^^ variable.language.lc3
+LABEL       AND         R0, R1, #31
+; <- entity.name.function.lc3
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ; ^ punctuation.separator.lc3
+                        ;   ^^ variable.language.lc3
+                        ;     ^ punctuation.separator.lc3
+                        ;       ^^^ constant.numeric.integer
+LABEL       BR          LABEL
+LABEL       BRn         LABEL
+LABEL       BRn         #-1
+LABEL       BRn         x20
+LABEL       BRz         x20
+LABEL       BRp         x20
+LABEL       BRnz        x20
+LABEL       BRnp        x20
+LABEL       BRzp        x20
+LABEL       BRnzp       x20
+LABEL       JMP         R0
+LABEL       JMP         R0, #-32
+LABEL       JSR         X7FF
+LABEL       JSRR        R0
+LABEL       LD          R3, X0001FF
+LABEL       LDI         R4, #-256
+LABEL       LEA         R5, #234
+LABEL       NOT         R6, R7
+LABEL       RET
+LABEL       RTI
+LABEL       ST          R0, #1
+LABEL       STI         R0, #2
+LABEL       STR         R0, R0, #1
+LABEL       TRAP        x22
+            ADD         R0, R1, R2
+            ADD         R0, R1, x1F
+            AND         R0, R1, R2
+            AND         R0, R1, #31
+            BRn         LABEL
+            BRn         #-1
+            BRn         x20
+            BRz         x20
+            BRp         x20
+            BRnz        x20
+            BRnp        x20
+            BRzp        x20
+            BRnzp       x20
+            JMP         R0
+            JMP         R0, #-2
+            JSR         X7FF
+            JSRR        R0
+            LD          R3, LABEL
+            LDI         R4, #-256
+            LEA         R5, LABEL
+            NOT         R6, R7
+            RET
+            RTI
+            ST          R0, #1
+            STI         R0, LABEL
+            STR         R0, R0, #1
+            TRAP        x22
+        
+            LEA         R0, TEXT
+            ; <- keyword.control.lc3
+                        ; <- variable.language.lc3
+                        ;   ^^^^ variable.function.lc3
+
+            TRAP        x20
+            ; <- meta.function-call.lc3 keyword.control.lc3
+                        ; <- constant.numeric.hex.lc3
+            TRAP        #32
+            ; <- meta.function-call.lc3 keyword.control.lc3
+                        ; <- constant.numeric.integer.lc3
+
+            GETC
+            ; <- meta.function-call.lc3 constant.language.trap.lc3
+            OUT
+            ; <- meta.function-call.lc3 constant.language.trap.lc3
+            PUTS
+            ; <- meta.function-call.lc3 constant.language.trap.lc3
+            IN
+            ; <- meta.function-call.lc3 constant.language.trap.lc3
+            PUTSP
+            ; <- meta.function-call.lc3 constant.language.trap.lc3
+            HALT
+            ; <- meta.function-call.lc3 constant.language.trap.lc3
+
+LABEL
+; <- entity.name.function.lc3
+;    ^ invalid.illegal.missing-opcode.lc3
+
+LABEL moo   .FILL       #0
+; <- entity.name.function.lc3
+;     ^^^ invalid.illegal.illegal-opcode.lc3
+            ; <- keyword.control.import.lc3
+                        ; <- constant.numeric.integer.lc3
+
+
+          
+TEXT        .STRINGZ    "moo\n"
+; <- entity.name.function.lc3
+            ; <- meta.preprocessor.lc3 keyword.control.import.lc3
+                        ; <- string.quoted.double.lc3
+                        ; <- punctuation.definition.string.begin.lc3
+                        ;   ^^ constant.character.escape.lc3
+                        ;     ^ punctuation.definition.string.end.lc3
+            .END        R0  ; moo
+                        ;   ^^^^^ comment.line.lc3
+            ; <- meta.preprocessor.lc3 keyword.control.import.lc3
+                        ; <- invalid.illegal.code-past-end.lc3
+
+            RET
+            ; <- invalid.illegal.code-past-end.lc3
